@@ -1,0 +1,11 @@
+/*code just one enormous monster Problem, in which making ultimate methods is the goal.To see the trees through the forest - we do have to use methods!...its basically means solving unlimited problems in only one directory using methods.
+1.string SumOfChars(string word1, string word2) --> returns "Match made in heaven!" if the ascii value totals add up, if they don't, return "Terrible matchup!" 
+2.bool IsFibonacci(int number) --> determines whether a number is part of the Fibonacci sequence or not 
+3.string ReverseCase(string text) --> Reverses the case of a text 
+4.bool Anagram(string text1, string text2) --> determines whether 2 inputted texts are anagrams of each other 
+5.string FizzBuzz(int n) --> print out the numbers from 1 through n (included), but for multiples of 3 print "Fizz", for multiples of 5, print "Buzz" and if they are multiples of both, print "FizzBuzz"
+6.int LCM(int a, int b) --> returns the lowest common multiplier of 2 numbers
+7.string Characters(string textfile) --> Read in a file (download files: Boeken.zip , files already in CodeGrade) and find the most used vowel and consonant. 
+8.int Scrabble(string english, string valueSearch) --> Read in the english dictionary (download files: english.txt Download english.txt, files already in CodeGrade) and calculate the score you will get if you play a given word in Scrabble.
+Scoring works the following way:  1 point - a, e, i, o, u, l, n, s t, r     2 points – d, g     3 points - b, c, m, p     4 points - f, h, v, w, y     5 points - k     8 points - j, x     10 points - q, z
+9.string Flip(string T) --> Read in a square matrix and flip it. You start with one input and inside of your method, continue asking for inputs up until you've reached the length of the first (because --> square matrix). Then flip it.*/
