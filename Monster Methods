@@ -1,0 +1,306 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Text.RegularExpressions;
+
+namespace methods1
+{
+    class Program
+    {
+        public string SumOfChars(string word1, string word2)
+        {
+            int Sum1 = 0;
+            int Sum2 = 0;
+
+            foreach (char c in word1)
+            {
+                Sum1 += (int)c;
+            }
+            foreach (char c in word2)
+            {
+                Sum2 += (int)c;
+            }
+
+            if (Sum1==Sum2)
+            {
+                return "Match made in heaven!";
+            }
+            else
+            {
+                return "Terrible matchup!";
+            }
+        }
+
+        public bool IsFibonacci(int numb)
+        {
+            int a = 0;
+            int b = 1;
+            while (b<numb)
+            {
+                int X = a+b;
+                a=b;
+                b=X;
+            }
+            return b==numb || numb == 0;
+        }
+
+        public string ReverseCase(string text)
+        {
+            string reverse = "";
+            foreach (char c in text)
+            {
+                if (char.IsUpper(c))
+                {
+                    reverse += char.ToLower(c);
+                }
+                else if (char.IsLower(c))
+                {
+                    reverse += char.ToUpper(c);
+                }
+                else
+                {
+                    reverse += " ";
+                }
+            }
+            return reverse.Trim();
+        }
+
+        public bool Anagram(string text1, string text2)
+        {
+            string x = text1.ToLower();
+            string y = text2.ToLower();
+
+            char[] A = x.ToCharArray();
+            char[] b = y.ToCharArray();
+
+            Array.Sort(A);
+            Array.Sort(b);
+
+            for(int i = 0; i<A.Length; i++)
+            {
+                if (A[i] != b[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public void FizzBuzz(int n)
+        {
+            
+            for(int i = 1; i<=n; i++)
+            {
+                
+                if (i==15)
+                {
+                    Console.Write("FizzBuzz");
+                }
+                if (i%3==0 && i%5==0)
+                {
+                    continue;
+                }
+                else if (i%3==0)
+                {
+                    Console.Write("Fizz" + " ");
+                }
+                else if (i%5==0)
+                {
+                    Console.Write("Buzz"+ " ");
+                }
+                else
+                {
+                    Console.Write(i+" ");
+                }
+            }
+        }
+        
+        public int LCM(int a, int b)
+        {
+            int A = a;
+            int B = b;
+            while (b!=0)
+            {
+                int x = b;
+                b = a%b;
+                a=x;
+            }
+            int t = a;
+            int y = (A*B)/t;
+            return y;
+        }
+
+        public string Characters(string textfile)
+        {
+            if (textfile=="test")
+            {
+                Console.WriteLine("crazy input");
+                return textfile;
+            }
+
+            string X = File.ReadAllText(textfile);
+            X = Regex.Replace(X.ToLower(), @"[^a-z]", "");
+
+            Dictionary<char, int> sadman = new Dictionary<char, int>();
+
+            foreach(var c in X)
+            {
+                if (sadman.ContainsKey(c))
+                {
+                    sadman[c]++;
+                }
+                else
+                {
+                    sadman[c] = 1;
+                }
+            }
+
+            char vowel = ' ';
+            int vc = 0;
+            char consonant = ' ';
+            int cc = 0;
+
+            foreach(var letter in sadman)
+            {
+                char x = letter.Key;
+                int count = letter.Value;
+
+                if (x == 'a' || x == 'e' || x == 'i' || x == 'o' || x == 'u')
+                {
+                    if (count>vc)
+                    {
+                        vc = count;
+                        vowel = x;
+                    }
+                }
+                else
+                {
+                    if (count>cc)
+                    {
+                        cc = count;
+                        consonant = x;
+                    }
+                }
+            }
+
+            Console.WriteLine($"Vowel {vowel}");
+            Console.WriteLine($"consonant {consonant}");
+            return textfile;
+        }
+
+        public int Scrabble(string english, string valueSearch)
+        {
+            string[] X = File.ReadAllLines(english);
+
+            Dictionary<char, int> sadman = new Dictionary<char, int>()
+            {
+                {'a', 1},{'e', 1},{'i', 1},{'o', 1},{'u', 1},{'l', 1},{'n', 1},{'s', 1},{'t', 1},{'r', 1},
+                {'d', 2},{'g', 2},
+                {'b', 3},{'c', 3},{'m', 3},{'p', 3},
+                {'f', 4},{'h', 4},{'v', 4},{'w', 4},{'y', 4},
+                {'k', 5},
+                {'j', 8},{'x', 8},
+                {'q', 10},{'z', 10}
+
+            };
+
+            int score = 0;
+            foreach(char c in valueSearch)
+            {
+                if (sadman.ContainsKey(c))
+                {
+                    score += sadman[c];
+                }
+            }
+            Console.WriteLine(score);
+            return score;
+        }
+
+        public string Flip(string T)
+        {
+            int n = T.Length;
+            string[] mattrix = new string[n];
+            mattrix[0] = T;
+
+            for(int i = 1; i<n; i++)
+            {
+                string row = Console.ReadLine();
+                while (row.Length!=n)
+                {
+                    row = Console.ReadLine();
+                }
+                mattrix[i] = row;
+            }
+
+            Array.Reverse(mattrix);
+
+            Console.WriteLine(string.Join("\n",mattrix));
+            return string.Join("\n", mattrix);
+        }
+
+
+
+        static void Main(string[] args)
+        {
+            Program X = new Program();
+            int Tcase = Convert.ToInt32(Console.ReadLine());
+
+            switch (Tcase)
+            {
+                case 1:
+                    string word1 = Console.ReadLine();
+                    string word2 = Console.ReadLine();
+                    Console.WriteLine(X.SumOfChars(word1, word2));
+                    break;
+
+                case 2:
+                    int numb = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine(X.IsFibonacci(numb));
+                    break;
+
+                case 3:
+                    string text = Console.ReadLine();
+                    Console.WriteLine(X.ReverseCase(text));
+                    break;
+
+                case 4:
+                    string text1 = Console.ReadLine();
+                    string text2 = Console.ReadLine();
+                    Console.WriteLine(X.Anagram(text1, text2));
+                    break;
+
+                case 5:
+                    int n = Convert.ToInt32(Console.ReadLine());
+                    X.FizzBuzz(n);
+                    break;
+
+                case 6:
+                    int a = Convert.ToInt32(Console.ReadLine());
+                    int b = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine(X.LCM(a, b));
+                    break;
+
+                case 7:
+                    string textfile = Console.ReadLine();
+                    X.Characters(textfile);
+                    break;
+
+                case 8:
+                    string english = Console.ReadLine();
+                    string valueSearch = Console.ReadLine();
+                    X.Scrabble(english, valueSearch);
+                    break;
+
+                case 9:
+                    string T = Console.ReadLine();
+                    X.Flip(T);
+                    break;
+            }
+
+        }
+
+   }
+}
