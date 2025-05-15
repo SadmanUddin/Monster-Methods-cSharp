@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
+
+namespace sadman
+
+{
+    class program
+    {
+        Dictionary<string, string> t = new Dictionary<string, string>();
+        public string Addpokemon()
+        {
+            Console.WriteLine("Enter pokemon name:");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter pokemon type:");
+            string type = Console.ReadLine();
+            t.Add(name, type);
+
+                return string.Join(" ", t);
+            
+
+        }
+
+        public string showpokemon()
+        {
+            Console.WriteLine("Do you want to see your pokemon name and type collection?");
+            string a = Console.ReadLine();
+            if (a=="Yes"|| a=="yes")
+            {
+                foreach (var kvp in t)
+                {
+                    Console.WriteLine($"Your pokemon name is {kvp.Key} and Type is {kvp.Value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("okay");
+            }
+            return string.Join(" ", t);
+        }
+
+        public string searchPokemon()
+        {
+            Console.WriteLine("search your pokemon type");
+            string searchname = Console.ReadLine();
+
+            if (t.ContainsKey(searchname))
+            {
+                Console.WriteLine($"Your pokemon {searchname} is of type {t[searchname]}");
+            }
+            else
+            {
+                Console.WriteLine("not in pokedex");
+            };
+            return string.Join(" ", searchname);
+        }
+
+        public static void Main()
+        {
+            program x = new program();
+            Console.WriteLine("Welcome to the pokemon manager!");
+
+            string option = "";
+
+            while (option!="4")
+            {
+
+                Console.WriteLine("Choose an option: 1.Add pokemon\n 2.Show All Pokemon\n 3.Search Pokemon\n 4.Exit\n");
+                option = Console.ReadLine();
+                if (option == "1")
+                {
+                    x.Addpokemon();
+                }
+                else if (option == "2")
+                {
+                    x.showpokemon();
+                }
+                else if (option =="3")
+                {
+                    x.searchPokemon();
+                }
+                else if (option == "4")
+                {
+                    Console.WriteLine("Goodbye,Thank you.");
+                }
+            }
+        }
+    }
