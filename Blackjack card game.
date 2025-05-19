@@ -1,0 +1,201 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
+
+namespace sadman
+
+{
+    class program
+    {
+
+        List<int> usercard = new List<int>();
+        List<int> pccard = new List<int>();
+        int usersum = 0;
+        int psum = 0;
+
+        public static int Randomcard()
+        {
+            Random r = new Random();
+            return r.Next(1, 14);
+        }
+        public void NewGame()
+        {
+            Console.WriteLine("New game started!");
+
+            usercard = new List<int>();
+            pccard = new List<int>();
+
+            usercard.Add(Randomcard());
+            usercard.Add(Randomcard());
+            pccard.Add(Randomcard());
+            pccard.Add(Randomcard());
+
+            Console.WriteLine("Your first cards:");
+
+            Console.WriteLine($"Card: {usercard[0]}");
+            Console.WriteLine($"Card: {usercard[1]}");
+
+            int sum = 0;
+
+            foreach(int numb in usercard)
+            {
+                sum += numb;
+            }
+
+            Console.WriteLine($"Total score: {sum}");
+
+            Console.WriteLine($"Computer drew {pccard.Count} cards");
+        }
+
+        public void hit()
+        {
+            int newcard = Randomcard();
+            Console.WriteLine($"You drew: {newcard}");
+
+            usercard.Add(newcard);
+
+            int sum = 0;
+
+            foreach (int numb in usercard)
+            {
+                sum += numb;
+            }
+
+            usersum = sum;
+
+            Console.WriteLine($"Total score:{sum}");
+
+
+
+
+        }
+
+        public void showhand()
+        {
+            Console.WriteLine("Your current hand:");
+
+            if (usercard.Count>2)
+            {
+                Console.WriteLine(usercard[0]);
+                Console.WriteLine(usercard[1]);
+                Console.WriteLine(usercard[2]);
+
+                int sum = 0;
+
+                foreach (int numb in usercard)
+                {
+                    sum += numb;
+                }
+                Console.WriteLine($"total score : {sum}");
+            }
+            else
+            {
+                Console.WriteLine(usercard[0]);
+                Console.WriteLine(usercard[1]);
+
+                int sum = 0;
+
+                foreach (int numb in usercard)
+                {
+                    sum += numb;
+                }
+                Console.WriteLine($"total score : {sum}");
+            }
+
+            int pcsum = 0;
+
+            foreach(int item in pccard)
+            {
+                pcsum += item;
+            }
+
+            Console.WriteLine($"Current Computer score:{pcsum}");
+        }
+
+        public void stand()
+        {
+            Console.WriteLine("You stand");
+            Console.WriteLine("Computers turn.....");
+
+            int newcard = Randomcard();
+            pccard.Add(newcard);
+            Console.WriteLine($"Computer drew: {newcard}");
+            int pcsum = 0;
+
+            foreach (int item in pccard)
+            {
+                pcsum += item;
+            }
+
+            psum = pcsum;
+
+            Console.WriteLine($"Computer total score : {pcsum}");
+
+            if (usersum>21)
+            {
+                Console.WriteLine("Computer wins");
+            }
+            if (psum>21)
+            {
+                Console.WriteLine("player wins");
+            }
+            if (usersum<=21 && usersum>psum)
+            {
+                Console.WriteLine("player wins");
+            }
+            if (psum<=21 && psum>usersum)
+            {
+                Console.WriteLine("computer wins");
+            }
+            if (usersum==psum)
+            {
+                Console.WriteLine("its a tie");
+            }
+
+        }
+
+        public static void Main()
+        {
+            program T = new program();
+            Console.WriteLine("Welcome To blackjack!");
+            string option = "";
+
+            while(option != "5")
+            {
+                Console.WriteLine("choose an option:");
+                Console.WriteLine("1.start a new game:");
+                Console.WriteLine("2.Show hands:");
+                Console.WriteLine("3.Hit(Draw card):");
+                Console.WriteLine("4.stand(end turn):");
+                Console.WriteLine("5.Exit:");
+
+                option = Console.ReadLine();
+
+                switch (option)
+                {
+                    case "1":
+                        T.NewGame();
+                        break;
+                    case "2":
+                        T.showhand();
+                        break;
+                    case "3":
+                        T.hit();
+                        break;
+                    case "4":
+                        T.stand();
+                        break;
+                    case "5":
+                        Console.WriteLine("Thanks for playing");
+                        break;
+                }
+
+            }
+        }
+    }
+}
